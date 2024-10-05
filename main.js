@@ -1,37 +1,41 @@
 const THREE = window.MINDAR.IMAGE.THREE;
 
 document.addEventListener('DOMContentLoaded', () => {
-const start = async () => {
-		const video = document.createElement("video");
-		video.setAttribute("src", "./myVideo");
-		video,setAttribute("loop", "");
+  const start = async () => {
+    const video = document.createElement("video");
+    video.setAttribute("src", "./myVideo.mp4");
+    video.setAttribute("loop", "");
 
-		video.oncanpaly = () => {
-				video.play();
-		}
-		const mindarThree = new window.MINDAR.IMAGE.MindARThree({
-		container: document.body, 
-		imageTargetSrc: './sju.mind'
-});
+    video.oncanplay = () => {
+      video.play();
+    };
 
-const {renderer, scene, camera} = mindarThree;
-comst geometry = new THREE.PlanGeometry(1, 1,);
-const videoTexture = new THREE.VideoTexture(video);
-const material = new Three.MeshBasicMaterial({map: videoTexture, side: THREE.FrontSide, taneMapped: false});
-const plane = new THREE.Mesh(geometry, material);
+    const mindarThree = new window.MINDAR.IMAGE.MindARThree({
+      container: document.body, 
+      imageTargetSrc: './josephs.mind'
+    });
 
-const anchor = mindThree.addAnchor(0);
-anchor.group.add(plane); 
+    // Ensure the mindarThree object is correctly instantiated
+    const { renderer, scene, camera } = mindarThree;  // Destructuring must be done after proper initialization
 
-await mindarThree.start();
+    const geometry = new THREE.PlaneGeometry(1, 1);
+    const videoTexture = new THREE.VideoTexture(video);
+    const material = new THREE.MeshBasicMaterial({
+      map: videoTexture,
+      side: THREE.FrontSide, 
+      toneMapped: false
+    });
+    const plane = new THREE.Mesh(geometry, material);
 
-renderer.setAnimationLoop( () => {
-		renderer.render(scene, camera);
-});
+    const anchor = mindarThree.addAnchor(0);
+    anchor.group.add(plane); 
 
-}
+    await mindarThree.start();
 
-start();
+    renderer.setAnimationLoop(() => {
+      renderer.render(scene, camera);
+    });
+  };
 
-
+  start();
 });
